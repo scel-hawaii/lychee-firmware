@@ -3,7 +3,6 @@
 
 #include "stm32f3xx_hal.h"
 #include "cmsis_os.h"
-#include "serial_logging.h"
 
 extern ADC_HandleTypeDef hadc1;
 

@@ -4,6 +4,9 @@
 #include "stm32f3xx_hal.h"
 #include "cmsis_os.h"
 
+#define TRUE 1
+#define FALSE 0
+
 #define VDD 3300
 #define ADC_RESOLUTION 4095
 

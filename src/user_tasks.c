@@ -3,6 +3,7 @@
 #include "sp212.h"
 #include "adc.h"
 #include "battery.h"
+#include "xbee.h"
 
 void SerialTask(void) {
 	// Setup Buffer for printf
@@ -35,8 +36,6 @@ void StartADCTask(void) {
 	uint32_t adc_value;
 	TickType_t xLastWakeTime = xTaskGetTickCount();
 
-	sp212_setup();
-
 	for(;;) {
 		adc_value = sp212_read();
 		printf("Pyranometer Value: %ld\n\r", adc_value);
@@ -44,4 +43,20 @@ void StartADCTask(void) {
 		vTaskDelayUntil( &xLastWakeTime,  3000);
 	}
 
+}
+
+
+void StartXbeeTask(void) {
+	xbee_request_t xbee;
+	uint8_t payload[2];
+	payload[0] = 'H';
+	payload[1] = 'L';
+
+	uint8_t len = sizeof(payload);
+	xbee_createRequest(&xbee, 0x0, 0x0, (uint8_t *) &payload, len);
+
+	for(;;) {
+		xbee_send(&xbee);
+		HAL_Delay(3000);
+	}
 }

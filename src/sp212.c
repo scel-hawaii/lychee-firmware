@@ -12,11 +12,8 @@ uint32_t sp212_read(void) {
 	 
 	raw_val = single_ended_adc(PA0);
 
-	printf("Raw ADC Value: %ld\r\n", raw_val);
 	// convert 12 bit adc value w/ 3300 mv
 	voltage = raw_val * 3300 / 4095;
-
-	printf("Voltage Value: %ld\r\n", voltage);
 	// Return W m^2 value
 	return (float) voltage * conversion_factor;
 

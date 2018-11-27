@@ -17,7 +17,6 @@ int8_t bme280_i2c_write(uint8_t dev_id, uint8_t reg_addr, uint8_t *reg_data, uin
 
 void bme280_delay(uint32_t period);
 
-
 int8_t bme280_read_forced_mode(struct bme280_dev *dev);
 
 void print_sensor_data(struct bme280_data *comp_data);

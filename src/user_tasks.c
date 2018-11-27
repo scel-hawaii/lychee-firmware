@@ -1,9 +1,5 @@
 #include "user_tasks.h"
-#include "bme280_user.h"
-#include "sp212.h"
-#include "adc.h"
-#include "battery.h"
-#include "xbee.h"
+#include "board.h"
 
 void SerialTask(void) {
 	// Setup Buffer for printf
@@ -59,4 +55,21 @@ void StartXbeeTask(void) {
 		xbee_send(&xbee);
 		HAL_Delay(3000);
 	}
+}
+
+void StartWeatherBoxTask(void) {
+	board_t board;
+	board_init(&board);
+
+	TickType_t xLastWakeTime;
+	const TickType_t xFrequency = 5000;
+
+	for(;;) {
+		board_sample(&board);
+		board_transmit_data(&board);
+
+		xLastWakeTime = xTaskGetTickCount();
+		vTaskDelayUntil(&xLastWakeTime, xFrequency);
+	}
+
 }

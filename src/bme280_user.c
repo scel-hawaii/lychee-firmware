@@ -4,6 +4,7 @@
 #define SPI 1
 int8_t bme280_init_user(struct bme280_dev *dev) {
 	int8_t rslt = BME280_OK;
+	uint8_t settings_sel;
 
 	/* Sensor_0 interface over SPI with native chip select line */
 #ifdef SPI
@@ -23,6 +24,13 @@ int8_t bme280_init_user(struct bme280_dev *dev) {
 
 	rslt = bme280_init(dev);
 
+	dev->settings.osr_h = BME280_OVERSAMPLING_1X;
+	dev->settings.osr_p = BME280_OVERSAMPLING_1X;
+	dev->settings.osr_t = BME280_OVERSAMPLING_1X;
+
+	settings_sel = BME280_OSR_PRESS_SEL | BME280_OSR_TEMP_SEL | BME280_OSR_HUM_SEL;
+	rslt = bme280_set_sensor_settings(settings_sel, dev);
+
 	return rslt;
 }
 
@@ -39,11 +47,11 @@ int8_t bme280_read_forced_mode(struct bme280_dev *dev) {
 
 	settings_sel = BME280_OSR_PRESS_SEL | BME280_OSR_TEMP_SEL | BME280_OSR_HUM_SEL;
 
-	rslt = bme280_set_sensor_settings(settings_sel, dev);
+rslt = bme280_set_sensor_settings(settings_sel, dev);
 	printf("Temperature, Pressure, Humidity\r\n");
 	/* Continuously stream sensor data */
 	while (1) {
-		rslt = bme280_set_sensor_mode(BME280_FORCED_MODE, dev);
+rslt = bme280_set_sensor_mode(BME280_FORCED_MODE, dev);
 		rslt = bme280_get_sensor_mode(&mode, dev);
 		printf("Sensor Mode: 0x%x\r\n", mode);
 

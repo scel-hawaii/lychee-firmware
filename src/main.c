@@ -71,6 +71,7 @@ osThreadId serialTaskHandle;
 osThreadId bmeTaskHandle;
 osThreadId adcTaskHandle;
 osThreadId xbeeTaskHandle;
+osThreadId weatherboxTaskHandle;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
@@ -162,8 +163,8 @@ int main(void)
   //osThreadDef(adcTask, StartADCTask, osPriorityNormal, 0, 256);
   //adcTaskHandle = osThreadCreate(osThread(adcTask), NULL);
 
-  osThreadDef(xbeeTask, StartXbeeTask, osPriorityNormal, 0, 256);
-  xbeeTaskHandle = osThreadCreate(osThread(xbeeTask), NULL);
+  osThreadDef(weatherboxTask, StartWeatherBoxTask, osPriorityNormal, 0, 512);
+  xbeeTaskHandle = osThreadCreate(osThread(weatherboxTask), NULL);
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */

@@ -7,5 +7,6 @@ void SerialTask(void);
 void StartBMETask(void);
 void StartADCTask(void);
 void StartXbeeTask(void);
+void StartWeatherBoxTask(void);
 
 #endif
